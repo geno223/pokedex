@@ -4,24 +4,30 @@ const Pokemon    = require('./models/pokemon.js');
 
 
 
-app.get("/", (req, res) => {
-
-    res.send("<h1>Pokedex</h1>")
-})
 
 // INDEX
-app.get('/pokemon', (req, res) => {
-res.render('index.ejs', { data: Pokemon });
+app.get('/', (req, res) => {
+res.render('index.ejs', { Pokemon });
 });
 
 
 // SHOW
 app.get('/pokemon/:id', (req, res) => {
-res.render('show.ejs', { data: Pokemon[req.params.id] });
+
+    const id = req.params.id
+
+    const singlepokemon = Pokemon[id]
+   
+    res.render('show.ejs', {singlepokemon, id})
+
 });
 
 // New
 // GET /pokemon/new
+
+app.get('/pokemon/new', (req, res)=>{
+    
+})
 
 
 // Edit
