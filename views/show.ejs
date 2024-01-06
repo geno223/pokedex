@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1><%= singlepokemon.name %></h1>
-    <img src= "<%= singlepokemon.img%>">
-    <h2><%= singlepokemon.type %></h2>
-</body>
+ 
+  <body>
+   
+    <div class="poke-data">
+      <h1 class="data-h1"><%= pokemon.name %></h1>
+      <div class="poke-image">
+        <img src="<%= pokemon.img %>" alt="<%= pokemon.name %>" />
+      </div>
+      <div class="id">
+        <h2>ID: #<%= pokemon.id %></h2>
+      </div>
+    </div>
+  </body>
 </html>

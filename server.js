@@ -1,59 +1,55 @@
-const express    = require('express');
-const app        = express();
-const Pokemon    = require('./models/pokemon.js');
+const express = require("express");
+const app = express();
+const Pokemon = require("./models/pokemon");
+const morgan = require("morgan");
+const methodOverride = require("method-override");
 
+///Middleware
 
+app.use(morgan("dev"));
+app.use(methodOverride("_method"));
 
+//Routes
 
-// INDEX
-app.get('/pokemon', (req, res) => {
-res.render('index.ejs', { Pokemon });
+//test
+
+app.get("/", (req, res) => {
+  res.send("Pokemon");
 });
 
+//index
+app.get("/pokemon", (req, res) => {
+  res.render("index.ejs", { data: Pokemon });
+});
 
-// New
-// GET /pokemon/new
+//new
 
-app.get('/pokemon/new', (req, res)=>{
-
+app.get("/pokemon/new", (req, res)=>{
     res.render("new.ejs")
 })
 
+//create
 
-// Edit
-// GET /pokemon/:id/edit
+app.post("/pokemon", (req, res)=>{
+    const body = req.body
+    console.log(body)
+    Pokemon.push(body)
+    res.redirect("/pokemon")
+})
 
-app.get("/pokemon/:id/edit", (req, res)=>{
-    const id = req.params.id
 
-    const singlepokemon = Pokemon[id]
-   
-    res.render("edit.ejs", {singlepokemon, id} )
+//show
+app.get("/pokemon/:id", (req, res)=>{
+    const id= req.params.id
+    const Pokemon = Pokemon[id]
+    res.render("show.ejs", {pokemon, id})
 
 })
 
-// Create
-// POST /pokemon
 
 
-// Update
-// PUT /pokemon/:id
-
-
-// Destroy
-// DELETE /pokemon/:id
-
-
-// SHOW
-app.get('/pokemon/:id', (req, res) => {
-
-    const id = req.params.id
-
-    const singlepokemon = Pokemon[id]
-   
-    res.render('show.ejs', {singlepokemon, id})
-
-});
 
 // TURNING ON SERVER LISTENER
-app.listen(3000, () => {console.log("server is listening on port 3000")})
+app.listen(3000, () => {
+  console.log("server is listening on port 3000");
+});

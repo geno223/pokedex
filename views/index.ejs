@@ -1,16 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    <h1>Pokedex</h1>
-    <% for(let i = 0; i < Pokemon.length; i++ ){ %>
-    <h2><%= Pokemon[i].name%></h2>
-    <h3><%= Pokemon[i].type%></h3>
-    <img src= "<%= Pokemon[i].img %>">
-        <% }%>
-</body>
+  </head>
+  <body>
+    <a href="/pokemon/new">Add</a>
+    <div class="name-this">
+      <div class="name-this">
+        <% for (let i = 0; i < pokemon.length; i++){ %>
+        <div class="name-this">
+          <a href="/pokemon/<%= i %>" class="name-this"
+            ><img src="<%= pokemon[i].img %>" class="name-this"
+          />
+        </a>
+          <div class="name-this"><%= pokemon[i].id %></div>
+          <div class="name-this"><%= pokemon[i].name %></div>
+          <form
+            action="/pokemon/<%= i %>?_method=DELETE"
+            method="post"
+            class="name-this"
+          >
+            <input type="submit" value="delete" />
+          </form>
+        </div>
+        <% } %>
+      </div>
+    </div>
+  </body>
 </html>
