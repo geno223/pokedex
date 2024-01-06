@@ -9,6 +9,7 @@ const methodOverride = require("method-override");
 app.use(morgan("dev"));
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"))
 //Routes
 
 //test
@@ -52,6 +53,12 @@ app.put("/pokemon/:id", (req, res)=>{
   res.redirect("/pokemon")
 })
 
+//Delete
+app.delete("/pokemon/:id", (req, res)=>{
+  const id= req.params.id
+  Pokemon.splice(id,1)
+  res.redirect('/pokemon')
+})
 
 //show
 app.get("/pokemon/:id", (req, res) => {
