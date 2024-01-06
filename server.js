@@ -8,7 +8,7 @@ const methodOverride = require("method-override");
 
 app.use(morgan("dev"));
 app.use(methodOverride("_method"));
-
+app.use(express.urlencoded({ extended: true }));
 //Routes
 
 //test
@@ -24,30 +24,41 @@ app.get("/pokemon", (req, res) => {
 
 //new
 
-app.get("/pokemon/new", (req, res)=>{
-    res.render("new.ejs")
-})
+app.get("/pokemon/new", (req, res) => {
+  res.render("new.ejs");
+});
 
 //create
 
-app.post("/pokemon", (req, res)=>{
-    const body = req.body
-    console.log(body)
-    Pokemon.push(body)
-    res.redirect("/pokemon")
+app.post("/pokemon", (req, res) => {
+  const body = req.body;
+  Pokemon.push(body);
+  res.redirect("/pokemon");
+});
+//edit
+
+app.get("/pokemon/:id/edit", (req, res) => {
+  const id = req.params.id;
+  const pokemon = Pokemon[id];
+  res.render("edit.ejs", { pokemon, id });
+})
+
+//Update
+
+app.put("/pokemon/:id", (req, res)=>{
+  const id= req.params.id
+  const body = req.body
+  Pokemon[id]= body
+  res.redirect("/pokemon")
 })
 
 
 //show
-app.get("/pokemon/:id", (req, res)=>{
-    const id= req.params.id
-    const Pokemon = Pokemon[id]
-    res.render("show.ejs", {pokemon, id})
-
-})
-
-
-
+app.get("/pokemon/:id", (req, res) => {
+  const id = req.params.id;
+  const pokemon = Pokemon[id];
+  res.render("show.ejs", { pokemon, id });
+});
 
 // TURNING ON SERVER LISTENER
 app.listen(3000, () => {
